@@ -1,0 +1,86 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <id>de.liebki.MyOllamaEnhancer</id>
+    <version>0.1</version>
+
+    <name>MyOllamaEnhancer</name>
+    <vendor email="test@mail.com" url="https://shortmo.de">Shortmo.de</vendor>
+
+    <description>
+        <![CDATA[
+        <p>MyOllamaEnhancer is a simple plugin, which allows to use any ollama models for a variaty of things.</p>
+        <h3>Features:</h3>
+        <ul>
+            <li>1. Quick Enhancement - Just let the ollama model decide what to change.</li>
+            <li>2. Option Enhancement - Give the model a prompt based on your choosing (menu selection)</li>
+            <li>3. Custom Enhancement - Add a custom prompt to control the outcome.</li>
+        </ul>
+
+        <h3>Best model:</h3>
+        <p>A very strong model which is doing a lot of things in a good way is specifically this
+            <b>llama3:8b-instruct-q6_K</b>
+        </p>
+        <p>Download this by executing 'ollama pull llama3:8b-instruct-q6_K'</p>
+        <p>This model is a 6.6 GB model so be aware, I let this run on a 16gb memory device.</p>
+
+        <h3>Setup:</h3>
+        <p>Go to Settings > Other Settings/MyOllamaEnhancer: Configure the Endpoint for the ollama-server and the model you would like to use</p>
+
+        <h3>Usage:</h3>
+        <p>
+          1. Select code
+          <br/>
+          2. Right-click
+          <br/>
+          3. Choose the MyOllamaEnhancer-option you want to execute
+          <br/>
+          4. (Wait a bit)
+          <br/>
+          5. Done
+        </p>
+
+        <p>If you are not happy with the generated code, you can simply revert the changes.</p>
+
+        <small>Icon by uxwing!</smalll>
+    ]]>
+    </description>
+
+    <change-notes>No changes, this is the initial release.</change-notes>
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <projectConfigurable instance="de.liebki.myollamaenhancer.MyOllamaEnhancerSettings" displayName="MyOllamaEnhancer"/>
+    </extensions>
+
+    <actions>
+
+        <!-- Custom Prompt Action -->
+        <action id="de.liebki.aihelperplugin.CustomEnhanceCodeAction"
+                class="de.liebki.myollamaenhancer.actions.CustomCodeEnhanceAction"
+                text="Enhance Code with Custom Prompt"
+                description="Provide a custom prompt to enhance the selected code using the Ollama model."
+                icon="com.intellij.icons.ExpUiIcons.Diff.MagicResolveToolbar">
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+        </action>
+
+        <!-- Enhance Code with Prompt Variants -->
+        <action id="de.liebki.aihelperplugin.EnhanceCodeWithVariantsAction"
+                class="de.liebki.myollamaenhancer.actions.OptionCodeEnhanceAction"
+                text="Enhance Code with Options"
+                description="Select from multiple prompt variants to enhance the code using the Ollama model."
+                icon="com.intellij.icons.ExpUiIcons.Diff.MagicResolveToolbar">
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+        </action>
+
+        <!-- Simple Enhance Code Action -->
+        <action id="de.liebki.aihelperplugin.EnhanceCodeAction"
+                class="de.liebki.myollamaenhancer.actions.SimpleCodeEnhanceAction"
+                text="Enhance This Code"
+                description="Enhances the selected code using the Ollama model."
+                icon="com.intellij.icons.ExpUiIcons.Diff.MagicResolveToolbar">
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+        </action>
+
+    </actions>
+
+</idea-plugin>
