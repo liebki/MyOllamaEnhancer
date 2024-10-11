@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "de.liebki"
-version = "0.1"
+version = "0.1.1"
 
 dependencies {
     implementation("io.github.ollama4j:ollama4j:1.0.79")

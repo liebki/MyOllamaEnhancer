@@ -22,6 +22,10 @@ public class DataHolder {
     private static final String SIMPLE_CODE_PROMPT =
             "Do not include anything but the thing that is asked for, we are talking about {0} Code. Also do not explain what you did or comment on anything just provide code, don't use formatting; give always the raw code.";
 
+    private static final String ERROR_EXPLAIN_PROMPT_SIMPLE = "Please identify the problem in this thrown error, talk about where in the users code the problem could be located. Do not include any additional comments or explanations.";
+
+    private static final String ERROR_EXPLAIN_PROMPT_BULLET = "Please identify the problem in this thrown error, talk about where in the users code the problem could be located but you have to use short and precise bulletpoints in a logical way. Do not include any additional comments or explanations.";
+
     private static final String READABILITY_PROMPT = "Please analyze the following {0} code and enhance it solely for readability. Make the necessary changes and provide the updated code only. Do not include any comments or explanations.";
 
     private static final String BUGS_PROMPT = "Please analyze the following {0} code, identify and fix any bugs or problems. Make the necessary changes and provide the updated code only. Do not include any additional comments or explanations.";
@@ -34,6 +38,14 @@ public class DataHolder {
 
     public static String getSimpleCodePrompt() {
         return SIMPLE_CODE_PROMPT;
+    }
+
+    public static String getSimpleErrorExplainPrompt() {
+        return ERROR_EXPLAIN_PROMPT_SIMPLE;
+    }
+
+    public static String getBulletErrorExplainPrompt() {
+        return ERROR_EXPLAIN_PROMPT_BULLET;
     }
 
     public static String getReadabilityPrompt() {

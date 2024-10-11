@@ -1,64 +1,89 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
-    <id>de.liebki.MyOllamaEnhancer</id>
-    <version>0.1</version>
-
     <name>MyOllamaEnhancer</name>
-    <vendor email="test@mail.com" url="https://shortmo.de">Shortmo.de</vendor>
+    <id>de.liebki.MyOllamaEnhancer</id>
+    <version>0.1.1</version>
+    <idea-version since-build="222.3345.118" until-build="243.*" />
+    <vendor email="ciruxdev@gmail.com" url="https://github.com/liebki">Ciruxdev</vendor>
 
     <description>
         <![CDATA[
-        <p>MyOllamaEnhancer is a simple plugin, which allows to use any ollama models for a variaty of things.</p>
-        <h3>Features:</h3>
-        <ul>
-            <li>1. Quick Enhancement - Just let the ollama model decide what to change.</li>
-            <li>2. Option Enhancement - Give the model a prompt based on your choosing (menu selection)</li>
-            <li>3. Custom Enhancement - Add a custom prompt to control the outcome.</li>
-        </ul>
+    <p>MyOllamaEnhancer is a simple plugin that allows you to use any Ollama models for a variety of tasks.</p>
 
-        <h3>Best model:</h3>
-        <p>A very strong model which is doing a lot of things in a good way is specifically this
-            <b>llama3:8b-instruct-q6_K</b>
-        </p>
-        <p>Download this by executing 'ollama pull llama3:8b-instruct-q6_K'</p>
-        <p>This model is a 6.6 GB model so be aware, I let this run on a 16gb memory device.</p>
+    <h3>Features:</h3>
+    <p>1. Quick Enhancement - Let the Ollama model decide what to change.</p>
+    <p>2. Option Enhancement - Give the model a prompt based on your selection (menu selection).</p>
+    <small>- Also offers "Comment generation," which places a comment over the selected code—very helpful!</small>
+    <p>3. Custom Enhancement - Add a custom prompt to control the outcome.</p>
 
-        <h3>Setup:</h3>
-        <p>Go to Settings > Other Settings/MyOllamaEnhancer: Configure the Endpoint for the ollama-server and the model you would like to use</p>
+    <p>You can use this tool to "enhance" things that are not code; consider using the custom prompt option for this.</p>
 
-        <h3>Usage:</h3>
-        <p>
-          1. Select code
-          <br/>
-          2. Right-click
-          <br/>
-          3. Choose the MyOllamaEnhancer-option you want to execute
-          <br/>
-          4. (Wait a bit)
-          <br/>
-          5. Done
-        </p>
+    <h3>Stacktrace Analysis:</h3><ul>
+        <li><strong>Stacktrace Insights (Bullet)</strong>: Provides a simple summary of the stack trace in bullet points for quicker understanding.</li>
+        <li><strong>Stacktrace Insights (Text)</strong>: Offers a more detailed text, which explains the stacktrace to help diagnose the issue.</li>
+    </ul>
 
-        <p>If you are not happy with the generated code, you can simply revert the changes.</p>
+    <h3>Best Model:</h3>
+    <p>A strong model that performs well across various tasks is <b>llama3:8b-instruct-q6_K</b>.</p>
+    <p>Download this model by executing <code>ollama pull llama3:8b-instruct-q6_K</code>.</p>
+    <p>This model is 6.6 GB, so please ensure you have adequate memory; I recommend running it on a device with at least 16 GB of RAM.</p>
 
-        <small>Icon by uxwing!</smalll>
+    <h3>Setup:</h3>
+    <p>Go to <strong>Settings > Other Settings/MyOllamaEnhancer</strong> to configure the endpoint for the Ollama server and the model you would like to use.</p>
+
+    <h3>Usage:</h3>
+    <p>
+      1. Select code or a stack trace<br/>
+      2. Right-click<br/>
+      3. Choose the MyOllamaEnhancer option you want to execute<br/>
+      4. (Wait a bit)<br/>
+      5. Done
+    </p>
+
+    <p>If you are not satisfied with the generated output, you can easily revert the changes.</p>
+
+    <small>Icon by uxwing!</small>
     ]]>
     </description>
 
-    <change-notes>No changes, this is the initial release.</change-notes>
+    <change-notes>Added Stacktrace Analysis for errors thrown in the console view!</change-notes>
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
         <projectConfigurable instance="de.liebki.myollamaenhancer.MyOllamaEnhancerSettings" displayName="MyOllamaEnhancer"/>
+
+        <toolWindow id="ErrorToolWindow"
+                    anchor="right"
+                    factoryClass="de.liebki.myollamaenhancer.ErrorToolWindow"
+                    canCloseContents="true"
+                    secondary="false"/>
     </extensions>
 
     <actions>
 
+        <!-- Stacktrace Analyzer Bulletpoints -->
+        <action id="de.liebki.aihelperplugin.BulletErrorInformationAction"
+                class="de.liebki.myollamaenhancer.actions.BulletErrorInformationAction"
+                text="Stacktrace Insights (Bullet)"
+                description="Analyze a selected Stracktrace with the local model to better understand the problem and provide bullet points."
+                icon="com.intellij.icons.ExpUiIcons.Image.ZoomIn">
+            <add-to-group group-id="ConsoleView.PopupMenu" anchor="first"/>
+        </action>
+
+        <!-- Stacktrace Analyzer Text -->
+        <action id="de.liebki.aihelperplugin.ErrorInformationAction"
+                class="de.liebki.myollamaenhancer.actions.SimpleErrorInformationAction"
+                text="Stacktrace Insights (Text)"
+                description="Analyze a selected Stracktrace with the local model to better understand the problem and provide a text."
+                icon="com.intellij.icons.ExpUiIcons.Image.ZoomIn">
+            <add-to-group group-id="ConsoleView.PopupMenu" anchor="first"/>
+        </action>
+
         <!-- Custom Prompt Action -->
         <action id="de.liebki.aihelperplugin.CustomEnhanceCodeAction"
                 class="de.liebki.myollamaenhancer.actions.CustomCodeEnhanceAction"
-                text="Enhance Code with Custom Prompt"
-                description="Provide a custom prompt to enhance the selected code using the Ollama model."
+                text="Enhance This With Custom Prompt"
+                description="Provide a custom prompt to enhance the selection using a Ollama model."
                 icon="com.intellij.icons.ExpUiIcons.Diff.MagicResolveToolbar">
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
         </action>
@@ -66,8 +91,8 @@
         <!-- Enhance Code with Prompt Variants -->
         <action id="de.liebki.aihelperplugin.EnhanceCodeWithVariantsAction"
                 class="de.liebki.myollamaenhancer.actions.OptionCodeEnhanceAction"
-                text="Enhance Code with Options"
-                description="Select from multiple prompt variants to enhance the code using the Ollama model."
+                text="Enhance This With Options"
+                description="Choose from multiple prompt variants to enhance the selection using a Ollama model."
                 icon="com.intellij.icons.ExpUiIcons.Diff.MagicResolveToolbar">
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
         </action>
@@ -75,8 +100,8 @@
         <!-- Simple Enhance Code Action -->
         <action id="de.liebki.aihelperplugin.EnhanceCodeAction"
                 class="de.liebki.myollamaenhancer.actions.SimpleCodeEnhanceAction"
-                text="Enhance This Code"
-                description="Enhances the selected code using the Ollama model."
+                text="Enhance This"
+                description="Enhances the selection using a Ollama model."
                 icon="com.intellij.icons.ExpUiIcons.Diff.MagicResolveToolbar">
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
         </action>
