@@ -32,7 +32,7 @@ public class OllamaAPIUtil {
         return ollamaAPI.ping();
     }
 
-    public static void enhanceCodeInBackground(Project project, String userPrompt, String sysPrompt, Consumer<String> callback) {
+    public static void generateOllamaResponse(Project project, String userPrompt, String sysPrompt, Consumer<String> callback) {
         ProgressManager.getInstance().run(new Task.Modal(project, "Please Wait, Ollama Is Working...", true) {
 
             @Override

@@ -1,6 +1,6 @@
 # MyOllamaEnhancer
 
-MyOllamaEnhancer is a simple IntelliJ Platform Plugin that allows you to use various Ollama models for a variety of tasks, including quick, option-based, or fully custom enhancements.
+MyOllamaEnhancer is a simple IntelliJ Platform Plugin that allows you to use various Ollama models for option-based or custom code enhancements and stack trace analysis.
 
 ## Features
 
@@ -8,12 +8,19 @@ MyOllamaEnhancer is a simple IntelliJ Platform Plugin that allows you to use var
 
 - **Quick Enhancement:** Automatically improves your code by allowing the Ollama model to make changes without direction.
 - **Option-Based Enhancement:** Choose from a set of different enhancement options in a menu.
-    - Also offers a "Comment Generation" option, which places a comment on top of the selected code to describe it.
+    - Also offers a **"Comment Generation"** option, which places a comment on top of the selected code to describe it.
 - **Custom Enhancement:** Provide a fully custom prompt to have more control over the outcome.
 
 You can use this tool to "enhance" things that are not code; consider using the custom prompt option for this.
 
 ### Stacktrace Analysis
+
+#### Difference in Intellij IDEA and Rider IDE:
+- Intellij IDEA: 
+  - Simply right click a thrown error and select the option to pass to the ollama model.
+- Rider IDE: 
+  - Copy the (whole) stack trace, click on one of the "information"-icons on the bottom left near the exceptions and paste the content in the opened dialog.
+
 
 - **Stacktrace Insights (Bullet):** Provides a simple summary of the stack trace in bullet points for quicker understanding.
 - **Stacktrace Insights (Text):** Offers a more detailed text explanation of the stack trace to help diagnose issues.
@@ -29,13 +36,20 @@ You can use this tool to "enhance" things that are not code; consider using the 
 
 ## Usage
 
-1. Select the code or stack trace you want to enhance.
-2. Right-click and choose one of the MyOllamaEnhancer options:
-    - Quick Enhancement
-    - Option-Based Enhancement
-    - Custom Enhancement
-3. (Wait a bit) for the model to process the request.
-4. Review the changes; if you're not satisfied with the generated output, you can easily revert the changes.
+### Enhancer
+
+1. Select text or code
+2. Right-click
+3. Choose the MyOllamaEnhancer option you want to execute
+4. (Wait a bit)
+5. Done
+
+### Stacktrace Analyzer:
+
+1. Select a stack trace
+2. Right-click (Intellij IDEA) or click the info icon and input the stack trace (Rider IDE)
+4. (Wait a bit)
+5. Done
 
 ## Setup
 

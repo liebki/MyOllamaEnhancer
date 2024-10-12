@@ -23,7 +23,7 @@ public class OptionCodeEnhanceAction extends ActionBase {
             boolean isGenerateComment = selectedComboOption.equals("Add Comment");
             String sysPrompt = MessageFormat.format(ollamaPrompt, codeLanguage);
 
-            OllamaAPIUtil.enhanceCodeInBackground(e.getProject(), selectedCode, sysPrompt, response -> {
+            OllamaAPIUtil.generateOllamaResponse(e.getProject(), selectedCode, sysPrompt, response -> {
                 if (isGenerateComment) {
                     response = response + "\n" + selectedCode;
                 }
@@ -31,7 +31,7 @@ public class OptionCodeEnhanceAction extends ActionBase {
             });
 
         } else {
-            FeedbackOptions.showErrorNoSelectedCode();
+            FeedbackOptions.showErrorNoSelection();
         }
     }
 

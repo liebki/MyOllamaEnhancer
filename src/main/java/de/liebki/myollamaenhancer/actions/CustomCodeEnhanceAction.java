@@ -15,10 +15,10 @@ public class CustomCodeEnhanceAction extends ActionBase {
             if(sysPrompt == null)
                 return;
 
-            OllamaAPIUtil.enhanceCodeInBackground(e.getProject(), selectedCode, sysPrompt, response -> this.replaceSelectedText(e, response));
+            OllamaAPIUtil.generateOllamaResponse(e.getProject(), selectedCode, sysPrompt, response -> this.replaceSelectedText(e, response));
 
         } else {
-            FeedbackOptions.showErrorNoSelectedCode();
+            FeedbackOptions.showErrorNoSelection();
         }
 
     }

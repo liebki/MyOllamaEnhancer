@@ -9,20 +9,28 @@ import javax.swing.*;
 
 public class FeedbackOptions {
 
-    public static void showErrorNoSelectedCode() {
-        JOptionPane.showMessageDialog(null, "You have to select code before using this.", DataHolder.getTitle(), JOptionPane.WARNING_MESSAGE);
+    public static void showErrorNoSelection() {
+        JOptionPane.showMessageDialog(null, "You have to select something to input, before using this.", DataHolder.getTitle(), JOptionPane.WARNING_MESSAGE);
+    }
+
+    public static void showErrorNoInput() {
+        JOptionPane.showMessageDialog(null, "You have to input a stacktrace for this to work.", DataHolder.getTitle(), JOptionPane.WARNING_MESSAGE);
     }
 
     public static void showErrorExecution() {
-        JOptionPane.showMessageDialog(null, "An error occurred while executing ollama.", DataHolder.getTitle(), JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(null, "An error occurred while executing ollama.", DataHolder.getTitle(), JOptionPane.ERROR_MESSAGE);
     }
 
     public static void showErrorOllamaInactive() {
-        JOptionPane.showMessageDialog(null, "An error occurred, is ollama really active?", DataHolder.getTitle(), JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(null, "An error occurred, is ollama really active?", DataHolder.getTitle(), JOptionPane.ERROR_MESSAGE);
     }
 
     public static String getCustomUserPrompt() {
-        return JOptionPane.showInputDialog(null, "Your custom Instructions:", DataHolder.getTitle(), JOptionPane.PLAIN_MESSAGE);
+        return JOptionPane.showInputDialog(null, "Your custom Instructions:", DataHolder.getTitle(), JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public static String getStacktraceFromUser() {
+        return JOptionPane.showInputDialog(null, "Please input the whole stacktrace:", DataHolder.getTitle(), JOptionPane.INFORMATION_MESSAGE);
     }
 
     public static void showResponseInToolWindow(String response, Project activeProject) {

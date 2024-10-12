@@ -14,9 +14,9 @@ public class BulletErrorInformationAction extends ActionBase {
 
         if (selectedStacktrace != null) {
             String sysPrompt = DataHolder.getBulletErrorExplainPrompt();
-            OllamaAPIUtil.enhanceCodeInBackground(e.getProject(), selectedStacktrace, sysPrompt, response -> FeedbackOptions.showResponseInToolWindow(response, activeProject));
+            OllamaAPIUtil.generateOllamaResponse(e.getProject(), selectedStacktrace, sysPrompt, response -> FeedbackOptions.showResponseInToolWindow(response, activeProject));
         } else {
-            FeedbackOptions.showErrorNoSelectedCode();
+            FeedbackOptions.showErrorNoSelection();
         }
 
     }

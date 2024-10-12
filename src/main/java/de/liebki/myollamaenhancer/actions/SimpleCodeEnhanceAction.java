@@ -19,9 +19,9 @@ public class SimpleCodeEnhanceAction extends ActionBase {
         if (selectedCode != null) {
             String sysPrompt = MessageFormat.format(DataHolder.getSimpleCodePrompt(), codeLanguage);
 
-            OllamaAPIUtil.enhanceCodeInBackground(e.getProject(), selectedCode, sysPrompt, response -> this.replaceSelectedText(e, response));
+            OllamaAPIUtil.generateOllamaResponse(e.getProject(), selectedCode, sysPrompt, response -> this.replaceSelectedText(e, response));
         } else {
-            FeedbackOptions.showErrorNoSelectedCode();
+            FeedbackOptions.showErrorNoSelection();
         }
 
 

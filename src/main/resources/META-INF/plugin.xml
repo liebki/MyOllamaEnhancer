@@ -16,9 +16,11 @@
     <small>- Also offers "Comment generation," which places a comment over the selected code—very helpful!</small>
     <p>3. Custom Enhancement - Add a custom prompt to control the outcome.</p>
 
-    <p>You can use this tool to "enhance" things that are not code; consider using the custom prompt option for this.</p>
+    <p>You can use this tool to "enhance" things that are not code, consider using the custom prompt option for this.</p>
 
     <h3>Stacktrace Analysis:</h3><ul>
+        <p>Intellij IDEA: Simply right click the Stacktrace and choose what to use bulletpoints or summary text.</p>
+        <p>Rider IDE: Click one of the "information"-icons on the bottom left and input the copied stacktrace. (Sadly the only way I found).</p>
         <li><strong>Stacktrace Insights (Bullet)</strong>: Provides a simple summary of the stack trace in bullet points for quicker understanding.</li>
         <li><strong>Stacktrace Insights (Text)</strong>: Offers a more detailed text, which explains the stacktrace to help diagnose the issue.</li>
     </ul>
@@ -31,22 +33,31 @@
     <h3>Setup:</h3>
     <p>Go to <strong>Settings > Other Settings/MyOllamaEnhancer</strong> to configure the endpoint for the Ollama server and the model you would like to use.</p>
 
-    <h3>Usage:</h3>
+    <h3>Usage: </h3>
+
+    <h3>Enhancer: </h3>
     <p>
-      1. Select code or a stack trace<br/>
+      1. Select text or code<br/>
       2. Right-click<br/>
       3. Choose the MyOllamaEnhancer option you want to execute<br/>
       4. (Wait a bit)<br/>
       5. Done
     </p>
-
     <p>If you are not satisfied with the generated output, you can easily revert the changes.</p>
+
+    <h4>Stacktrace Analyzer: </h4>
+    <p>
+      1. Select a stack trace<br/>
+      2. Right-click (Intellij IDEA) or click the info icon and input the stack trace (Rider IDE)<br/>
+      4. (Wait a bit)<br/>
+      5. Done
+    </p>
 
     <small>Icon by uxwing!</small>
     ]]>
     </description>
 
-    <change-notes>Added Stacktrace Analysis for errors thrown in the console view!</change-notes>
+    <change-notes>Added Stacktrace Analysis for errors thrown in the console view, rider needs manual input sadly..</change-notes>
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
@@ -61,8 +72,26 @@
 
     <actions>
 
-        <!-- Stacktrace Analyzer Bulletpoints -->
-        <action id="de.liebki.aihelperplugin.BulletErrorInformationAction"
+        <!-- Stacktrace Analyzer Bulletpoints Rider -->
+        <action id="de.liebki.aihelperplugin.BulletErrorInformationAction.rider"
+                class="de.liebki.myollamaenhancer.actions.BulletErrorInformationRiderAction"
+                text="Stacktrace Insights (Bullet)"
+                description="Analyze a selected Stracktrace with the local model to better understand the problem and provide bullet points."
+                icon="com.intellij.icons.ExpUiIcons.Status.Info">
+            <add-to-group group-id="RunTab.TopToolbar" anchor="first"/>
+        </action>
+
+        <!-- Stacktrace Analyzer Text Rider -->
+        <action id="de.liebki.aihelperplugin.ErrorInformationAction.rider"
+                class="de.liebki.myollamaenhancer.actions.SimpleErrorInformationRiderAction"
+                text="Stacktrace Insights (Text)"
+                description="Analyze a selected Stracktrace with the local model to better understand the problem and provide a text."
+                icon="com.intellij.icons.ExpUiIcons.Status.Info">
+            <add-to-group group-id="RunTab.TopToolbar" anchor="first"/>
+        </action>
+
+        <!-- Stacktrace Analyzer Bulletpoints IntelliJ Idea -->
+        <action id="de.liebki.aihelperplugin.BulletErrorInformationAction.intellij"
                 class="de.liebki.myollamaenhancer.actions.BulletErrorInformationAction"
                 text="Stacktrace Insights (Bullet)"
                 description="Analyze a selected Stracktrace with the local model to better understand the problem and provide bullet points."
@@ -70,8 +99,8 @@
             <add-to-group group-id="ConsoleView.PopupMenu" anchor="first"/>
         </action>
 
-        <!-- Stacktrace Analyzer Text -->
-        <action id="de.liebki.aihelperplugin.ErrorInformationAction"
+        <!-- Stacktrace Analyzer Text IntelliJ Idea -->
+        <action id="de.liebki.aihelperplugin.ErrorInformationAction.intellij"
                 class="de.liebki.myollamaenhancer.actions.SimpleErrorInformationAction"
                 text="Stacktrace Insights (Text)"
                 description="Analyze a selected Stracktrace with the local model to better understand the problem and provide a text."
