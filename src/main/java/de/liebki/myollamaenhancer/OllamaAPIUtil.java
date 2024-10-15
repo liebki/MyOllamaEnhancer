@@ -7,10 +7,7 @@ import com.intellij.openapi.progress.Task;
 import com.intellij.openapi.project.Project;
 import io.github.ollama4j.OllamaAPI;
 import io.github.ollama4j.exceptions.OllamaBaseException;
-import io.github.ollama4j.models.chat.OllamaChatMessageRole;
-import io.github.ollama4j.models.chat.OllamaChatRequestBuilder;
-import io.github.ollama4j.models.chat.OllamaChatRequestModel;
-import io.github.ollama4j.models.chat.OllamaChatResult;
+import io.github.ollama4j.models.chat.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -58,7 +55,7 @@ public class OllamaAPIUtil {
         }
 
         OllamaChatRequestBuilder builder = OllamaChatRequestBuilder.getInstance(DataHolder.getOllamaModel());
-        OllamaChatRequestModel requestModel = builder.withMessage(OllamaChatMessageRole.SYSTEM, sysPrompt)
+        OllamaChatRequest requestModel = builder.withMessage(OllamaChatMessageRole.SYSTEM, sysPrompt)
                 .withMessage(OllamaChatMessageRole.USER, userPrompt)
                 .build();
 

@@ -2,7 +2,7 @@
 <idea-plugin>
     <name>MyOllamaEnhancer</name>
     <id>de.liebki.MyOllamaEnhancer</id>
-    <version>0.1.1</version>
+    <version>0.1.2</version>
     <idea-version since-build="222.3345.118" until-build="243.*" />
     <vendor email="ciruxdev@gmail.com" url="https://github.com/liebki">Ciruxdev</vendor>
 
@@ -57,7 +57,7 @@
     ]]>
     </description>
 
-    <change-notes>Added Stacktrace Analysis for errors thrown in the console view, rider needs manual input sadly..</change-notes>
+    <change-notes>0.1.2: Just trying to enhance the ollama model output by changing the prompts a bit. + Updated dependencies | 0.1.1: Stack trace analysis with ollama!</change-notes>
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
