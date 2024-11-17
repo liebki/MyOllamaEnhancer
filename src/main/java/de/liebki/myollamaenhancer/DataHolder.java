@@ -76,6 +76,7 @@ public class DataHolder {
 
     private static final String API_ENDPOINT_KEY = "de.liebki.myollamaenhancer.settings.apiEndpoint";
     private static final String OLLAMA_MODEL_KEY = "de.liebki.myollamaenhancer.settings.ollamaModel";
+    private static final String NOTIFICATION_KEY = "de.liebki.myollamaenhancer.settings.notification";
 
     public static String getApiEndpointKey() {
         return API_ENDPOINT_KEY;
@@ -86,12 +87,20 @@ public class DataHolder {
     }
 
     public static String getApiEndpoint() {
-        // Retrieve the saved API endpoint, returning a default if not found
         return PropertiesComponent.getInstance().getValue(API_ENDPOINT_KEY, "http://localhost:11434/");
     }
 
+    public static boolean getNotificationKey() {
+        return PropertiesComponent.getInstance().getBoolean(NOTIFICATION_KEY, false);
+    }
+
     public static String getOllamaModel() {
-        // Retrieve the saved Ollama model, returning a default if not found
         return PropertiesComponent.getInstance().getValue(OLLAMA_MODEL_KEY, "llama3:8b-instruct-q6_K");
     }
+
+    public static void setNotificationKey(boolean value) {
+        PropertiesComponent.getInstance().setValue(NOTIFICATION_KEY, value);
+    }
+
+
 }

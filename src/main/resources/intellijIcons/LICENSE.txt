@@ -1,0 +1,3 @@
+Icon Source: https://intellij-icons.jetbrains.design
+
+I downloaded them to integrate them in all IDEs the same.
