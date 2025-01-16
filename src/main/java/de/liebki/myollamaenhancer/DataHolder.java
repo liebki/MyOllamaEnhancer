@@ -12,6 +12,8 @@ public class DataHolder {
             "Fix Bugs/Problems",
             "Fix Code not working",
             "Enhance Performance",
+            "Create Unit Tests",
+            "Simplify",
             "Add Comment"
     };
 
@@ -31,6 +33,10 @@ public class DataHolder {
     private static final String BUGS_PROMPT = "Look at the following {0} code, identify and fix bugs or problems. Make the necessary changes and provide only the updated code. Also do not explain what you did or comment on anything just provide code, don't use formatting, give always the raw code.";
 
     private static final String PERFORMANCE_PROMPT = "Look at the following {0} code and try to enhance the performance. Make the necessary changes and provide only the updated code. Also do not explain what you did or comment on anything just provide code, don't use formatting, give always the raw code.";
+
+    private static final String UNIT_TESTS_PROMPT = "Look at the following {0} code and create unit tests. Create a comment and provide the unit tests code. Also do not explain what you did or comment on anything just provide code, don't use formatting, give always the raw code.";
+
+    private static final String SIMPLIFY_PROMPT = "Look at the following {0} code and make it most simple as possible. Make the necessary changes and provide only the updated code. Also do not explain what you did or comment on anything just provide code, don't use formatting, give always the raw code.";
 
     private static final String COMMENT_CODE_PROMPT = "Look at this {0} code and generate a short but concise comment which explains the primary purpose. Include only the comment and no additional informations.";
 
@@ -58,6 +64,12 @@ public class DataHolder {
 
     public static String getPerformancePrompt() {
         return PERFORMANCE_PROMPT;
+    }
+
+    public static String getUnitTestsPrompt() { return UNIT_TESTS_PROMPT; }
+
+    public static String getSimplifyPrompt() {
+        return SIMPLIFY_PROMPT;
     }
 
     public static String getCommentCodePrompt() {

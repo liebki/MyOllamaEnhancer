@@ -40,6 +40,8 @@ public class OptionCodeEnhanceAction extends ActionBase {
             case "Better Readability" -> DataHolder.getReadabilityPrompt();
             case "Fix Bugs/Problems" -> DataHolder.getBugsPrompt();
             case "Enhance Performance" -> DataHolder.getPerformancePrompt();
+            case "Create Unit Tests" -> DataHolder.getUnitTestsPrompt();
+            case "Simplify" -> DataHolder.getSimplifyPrompt();
             case "Add Comment" -> DataHolder.getCommentCodePrompt();
             case "Fix Code not working" -> DataHolder.getFixBrokenPrompt();
             default -> null;
