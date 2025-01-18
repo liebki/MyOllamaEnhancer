@@ -13,7 +13,7 @@ public class BulletErrorInformationAction extends ActionBase {
         final Project activeProject = e.getProject();
 
         if (selectedStacktrace != null) {
-            String sysPrompt = DataHolder.getBulletErrorExplainPrompt();
+            String sysPrompt = OllamaOption.ERROR_EXPLAIN_BULLET.getPrompt();
             OllamaAPIUtil.generateOllamaResponse(e.getProject(), selectedStacktrace, sysPrompt, response -> FeedbackOptions.showResponseInToolWindow(response, activeProject));
         } else {
             FeedbackOptions.showErrorNoSelection();

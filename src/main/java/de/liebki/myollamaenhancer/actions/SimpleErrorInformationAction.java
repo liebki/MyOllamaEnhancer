@@ -13,7 +13,7 @@ public class SimpleErrorInformationAction extends ActionBase {
         final Project activeProject = e.getProject();
 
         if (selectedStacktrace != null) {
-            String sysPrompt = DataHolder.getSimpleErrorExplainPrompt();
+            String sysPrompt = OllamaOption.ERROR_EXPLAIN_SIMPLE.getPrompt();
             OllamaAPIUtil.generateOllamaResponse(e.getProject(), selectedStacktrace, sysPrompt, response -> FeedbackOptions.showResponseInToolWindow(response, activeProject));
         } else {
             FeedbackOptions.showErrorNoSelection();
