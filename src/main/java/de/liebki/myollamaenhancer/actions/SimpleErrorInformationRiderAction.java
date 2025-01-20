@@ -2,10 +2,7 @@ package de.liebki.myollamaenhancer.actions;
 
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.project.Project;
-import de.liebki.myollamaenhancer.ActionBase;
-import de.liebki.myollamaenhancer.DataHolder;
-import de.liebki.myollamaenhancer.FeedbackOptions;
-import de.liebki.myollamaenhancer.OllamaAPIUtil;
+import de.liebki.myollamaenhancer.*;
 import org.jetbrains.annotations.NotNull;
 
 public class SimpleErrorInformationRiderAction extends ActionBase {
@@ -16,7 +13,7 @@ public class SimpleErrorInformationRiderAction extends ActionBase {
         String userCopiedStacktrace = FeedbackOptions.getStacktraceFromUser();
 
         if (userCopiedStacktrace != null) {
-            String sysPrompt = DataHolder.getSimpleErrorExplainPrompt();
+            String sysPrompt = OllamaOption.ERROR_EXPLAIN_SIMPLE.getPrompt();
             OllamaAPIUtil.generateOllamaResponse(e.getProject(), userCopiedStacktrace, sysPrompt, response -> FeedbackOptions.showResponseInToolWindow(response, activeProject));
         } else {
             FeedbackOptions.showErrorNoInput();

@@ -6,6 +6,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.text.MessageFormat;
 
+import static de.liebki.myollamaenhancer.OllamaOption.*;
+
 public class OptionCodeEnhanceAction extends ActionBase {
 
     @Override
@@ -19,7 +21,8 @@ public class OptionCodeEnhanceAction extends ActionBase {
             if(selectedComboOption == null)
                 return;
 
-            String ollamaPrompt = getOllamaPrompt(selectedComboOption);
+            OllamaOption selectedOption = getOption(selectedComboOption);
+            String ollamaPrompt = getOllamaPrompt(selectedOption);
             boolean isGenerateComment = selectedComboOption.equals("Add Comment");
             String sysPrompt = MessageFormat.format(ollamaPrompt, codeLanguage);
 
@@ -35,16 +38,16 @@ public class OptionCodeEnhanceAction extends ActionBase {
         }
     }
 
-    private String getOllamaPrompt(String selectedComboOption) {
+    private String getOllamaPrompt(OllamaOption selectedComboOption) {
         return switch (selectedComboOption) {
-            case "Better Readability" -> DataHolder.getReadabilityPrompt();
-            case "Fix Bugs/Problems" -> DataHolder.getBugsPrompt();
-            case "Enhance Performance" -> DataHolder.getPerformancePrompt();
-            case "Create Unit Tests" -> DataHolder.getUnitTestsPrompt();
-            case "Simplify" -> DataHolder.getSimplifyPrompt();
-            case "Add Comment" -> DataHolder.getCommentCodePrompt();
-            case "Fix Code not working" -> DataHolder.getFixBrokenPrompt();
-            default -> null;
+            case READABILITY -> READABILITY.getPrompt();
+            case BUGS -> BUGS.getPrompt();
+            case PERFORMANCE -> PERFORMANCE.getPrompt();
+            case UNIT_TESTS -> UNIT_TESTS.getPrompt();
+            case SIMPLIFY -> SIMPLIFY.getPrompt();
+            case COMMENT_CODE -> COMMENT_CODE.getPrompt();
+            case FIX_BROKEN -> FIX_BROKEN.getPrompt();
+            default -> "";
         };
     }
 

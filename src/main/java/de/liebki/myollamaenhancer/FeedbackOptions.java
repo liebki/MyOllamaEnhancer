@@ -6,6 +6,7 @@ import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowManager;
 
 import javax.swing.*;
+import java.util.Arrays;
 
 public class FeedbackOptions {
 
@@ -26,7 +27,7 @@ public class FeedbackOptions {
     }
 
     public static String getCustomUserPrompt() {
-        return JOptionPane.showInputDialog(null, "Your custom Instructions:", DataHolder.getTitle(), JOptionPane.INFORMATION_MESSAGE);
+        return JOptionPane.showInputDialog(null, "Your custom Instructions:", DataHolder.getTitle(), JOptionPane.INFORMATION_MESSAGE,null,null,"Please explain this Java code").toString();
     }
 
     public static String getStacktraceFromUser() {
@@ -49,7 +50,7 @@ public class FeedbackOptions {
     public static String showComboboxOptionPrompt() {
         JLabel label = new JLabel("Please select a option:");
 
-        JComboBox<String> comboBox = new ComboBox<>(DataHolder.getComboOptions());
+        JComboBox<String> comboBox = new ComboBox<>(OllamaOption.getArray());
         comboBox.setSelectedIndex(0);
 
         JPanel panel = new JPanel();
