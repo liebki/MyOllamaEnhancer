@@ -51,19 +51,30 @@ You can use this tool to "enhance" things that are not code; consider using the 
 4. (Wait a bit)
 5. Done
 
-## Setup
+## Additional
+
+### Setup
 
 To configure the plugin, follow these steps:
 
 1. Go to **Settings > Other Settings > MyOllamaEnhancer**.
 2. Configure the endpoint for the Ollama server and specify the model you would like to use.
 
-## Prerequisites
+### Prerequisites
 
 Ensure you have the following installed before using MyOllamaEnhancer:
 
 - **Ollama Server:** Follow the [official setup guide](https://ollama.ai).
 - **8/16 GB Memory:** The recommended model (`llama3:8b-instruct-q6_K`) requires a bit of memory for optimal performance.
+
+### Contributors!
+Feel free to add stuff you think that is helpful or useful!
+
+Thanks also to:
+- [@boaglio](https://github.com/boaglio)
+
+### Todo
+- Check the [issues](https://github.com/liebki/MyOllamaEnhancer/issues), they often contain things that are planned.
 
 ## License
 

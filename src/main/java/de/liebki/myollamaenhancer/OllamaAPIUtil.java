@@ -60,7 +60,7 @@ public class OllamaAPIUtil {
                 .build();
 
         OllamaChatResult chatResult = ollamaAPI.chat(requestModel);
-        return chatResult.getResponse();
+        return chatResult.getResponseModel().getMessage().getContent();
     }
 
 }

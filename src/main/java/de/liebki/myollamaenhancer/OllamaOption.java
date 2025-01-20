@@ -39,11 +39,13 @@ public enum OllamaOption {
         throw new IllegalArgumentException("Invalid Option");
     }
 
-    public static String[] getArray(){
-        return Arrays.stream(OllamaOption.values())
-                .filter(opt -> !opt.equals(SIMPLE_CODE) && !opt.equals(ERROR_EXPLAIN_SIMPLE)&& !opt.equals(ERROR_EXPLAIN_BULLET))
-                .map(opt -> opt.comboOption)
-                .toArray(String[]::new);
+    private static final String[] ENUM_VALUE_ARRAY = Arrays.stream(OllamaOption.values())
+            .filter(opt -> !opt.equals(SIMPLE_CODE) && !opt.equals(ERROR_EXPLAIN_SIMPLE) && !opt.equals(ERROR_EXPLAIN_BULLET))
+            .map(opt -> opt.comboOption)
+            .toArray(String[]::new);
+
+    public static String[] getEnumValueArray() {
+        return ENUM_VALUE_ARRAY;
     }
 
 }

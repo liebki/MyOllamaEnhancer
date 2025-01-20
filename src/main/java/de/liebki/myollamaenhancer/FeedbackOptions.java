@@ -6,7 +6,6 @@ import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowManager;
 
 import javax.swing.*;
-import java.util.Arrays;
 
 public class FeedbackOptions {
 
@@ -50,7 +49,7 @@ public class FeedbackOptions {
     public static String showComboboxOptionPrompt() {
         JLabel label = new JLabel("Please select a option:");
 
-        JComboBox<String> comboBox = new ComboBox<>(OllamaOption.getArray());
+        JComboBox<String> comboBox = new ComboBox<>(OllamaOption.getEnumValueArray());
         comboBox.setSelectedIndex(0);
 
         JPanel panel = new JPanel();
