@@ -8,10 +8,10 @@ plugins {
 }
 
 group = "de.liebki"
-version = "0.1.3.4"
+version = "0.1.3.5"
 
 dependencies {
-    implementation("io.github.ollama4j:ollama4j:1.0.91")
+    implementation("io.github.ollama4j:ollama4j:1.0.98")
 }
 
 
@@ -24,7 +24,6 @@ repositories {
 intellij {
     version.set("2023.2")
     type.set("IC") // Target IDE Platform
-
     plugins.set(listOf(/* Plugin Dependencies */))
 }
 
@@ -43,7 +42,7 @@ tasks {
 
     patchPluginXml {
         sinceBuild.set("222.3345.118")
-        untilBuild.set("254.*")
+        untilBuild = provider { null }
     }
 
     signPlugin {

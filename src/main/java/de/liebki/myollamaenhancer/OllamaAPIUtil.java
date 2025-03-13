@@ -20,6 +20,7 @@ public class OllamaAPIUtil {
     private static OllamaAPI getOllamaInstance() {
         if(ollamaAPI == null) {
             ollamaAPI = new OllamaAPI(DataHolder.getApiEndpoint());
+            ollamaAPI.setRequestTimeoutSeconds(20);
         }
         return ollamaAPI;
     }
