@@ -1,9 +1,7 @@
-<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
     <name>MyOllamaEnhancer</name>
     <id>de.liebki.MyOllamaEnhancer</id>
-    <version>0.1.3.5</version>
-<!--    <idea-version since-build="222.3345.118" until-build="254.*" />-->
+    <version>0.1.4</version>
     <vendor email="ciruxdev@gmail.com" url="https://github.com/liebki">Ciruxdev</vendor>
 
     <description>
@@ -57,7 +55,7 @@
     ]]>
     </description>
 
-    <change-notes>0.1.3.5: Added a bigger timeout range for the api-call to fix timeout problems thanks to @brccabral (GitHub) | 0.1.3.4: New Unit- and Simplify-Options and optimizations thanks to @boaglio (GitHub)</change-notes>
+    <change-notes>0.1.4: You can configure the API timeout in the settings and update to intellij platform plugin 2.0</change-notes>
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">

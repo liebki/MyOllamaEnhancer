@@ -7,6 +7,7 @@ import com.intellij.openapi.progress.Task;
 import com.intellij.openapi.project.Project;
 import io.github.ollama4j.OllamaAPI;
 import io.github.ollama4j.exceptions.OllamaBaseException;
+import io.github.ollama4j.exceptions.ToolInvocationException;
 import io.github.ollama4j.models.chat.*;
 import org.jetbrains.annotations.NotNull;
 
@@ -20,7 +21,7 @@ public class OllamaAPIUtil {
     private static OllamaAPI getOllamaInstance() {
         if(ollamaAPI == null) {
             ollamaAPI = new OllamaAPI(DataHolder.getApiEndpoint());
-            ollamaAPI.setRequestTimeoutSeconds(20);
+            ollamaAPI.setRequestTimeoutSeconds(DataHolder.getApiTimeout());
         }
         return ollamaAPI;
     }
@@ -48,7 +49,7 @@ public class OllamaAPIUtil {
         });
     }
 
-    private static String generateAndGetOllamaAnswer(String userPrompt, String sysPrompt) throws OllamaBaseException, IOException, InterruptedException {
+    private static String generateAndGetOllamaAnswer(String userPrompt, String sysPrompt) throws OllamaBaseException, IOException, InterruptedException, ToolInvocationException {
         OllamaAPI ollamaAPI = getOllamaInstance();
 
         if(!isOllamaActive()) {
@@ -61,6 +62,7 @@ public class OllamaAPIUtil {
                 .build();
 
         OllamaChatResult chatResult = ollamaAPI.chat(requestModel);
+
         return chatResult.getResponseModel().getMessage().getContent();
     }
 
