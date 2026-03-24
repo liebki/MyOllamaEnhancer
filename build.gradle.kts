@@ -11,7 +11,7 @@ group = "de.liebki"
 version = "0.1.4"
 
 dependencies {
-    implementation("io.github.ollama4j:ollama4j:1.0.100")
+    implementation("io.github.ollama4j:ollama4j:1.1.6")
     intellijPlatform {
         intellijIdeaCommunity("2025.1.3")
     }
