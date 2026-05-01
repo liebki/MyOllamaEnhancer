@@ -1,7 +1,7 @@
 <idea-plugin>
     <name>MyOllamaEnhancer</name>
     <id>de.liebki.MyOllamaEnhancer</id>
-    <version>0.1.4</version>
+    <version>0.1.5</version>
     <vendor email="ciruxdev@gmail.com" url="https://github.com/liebki">Ciruxdev</vendor>
 
     <description>

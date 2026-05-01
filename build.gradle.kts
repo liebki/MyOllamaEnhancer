@@ -2,18 +2,18 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 
 plugins {
     id("java")
-    id("org.jetbrains.kotlin.jvm") version "2.1.21"
-    id("org.jetbrains.intellij.platform") version "2.6.0"
+    id("org.jetbrains.kotlin.jvm") version "2.3.21"
+    id("org.jetbrains.intellij.platform") version "2.16.0"
     id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
 group = "de.liebki"
-version = "0.1.4"
+version = "0.1.5"
 
 dependencies {
-    implementation("io.github.ollama4j:ollama4j:1.1.6")
+    implementation("io.github.ollama4j:ollama4j:1.1.7")
     intellijPlatform {
-        intellijIdeaCommunity("2025.1.3")
+        intellijIdea("2026.1.1")
     }
 }
 
