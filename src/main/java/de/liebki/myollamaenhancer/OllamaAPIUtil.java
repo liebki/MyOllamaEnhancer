@@ -5,10 +5,11 @@ import com.intellij.openapi.progress.ProgressIndicator;
 import com.intellij.openapi.progress.ProgressManager;
 import com.intellij.openapi.progress.Task;
 import com.intellij.openapi.project.Project;
-import io.github.ollama4j.OllamaAPI;
-import io.github.ollama4j.exceptions.OllamaBaseException;
-import io.github.ollama4j.exceptions.ToolInvocationException;
-import io.github.ollama4j.models.chat.*;
+import io.github.ollama4j.Ollama;
+import io.github.ollama4j.exceptions.OllamaException;
+import io.github.ollama4j.models.chat.OllamaChatRequest;
+import io.github.ollama4j.models.chat.OllamaChatMessageRole;
+import io.github.ollama4j.models.chat.OllamaChatResult;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -16,19 +17,23 @@ import java.util.function.Consumer;
 
 public class OllamaAPIUtil {
 
-    private static OllamaAPI ollamaAPI;
+    private static Ollama ollama;
 
-    private static OllamaAPI getOllamaInstance() {
-        if(ollamaAPI == null) {
-            ollamaAPI = new OllamaAPI(DataHolder.getApiEndpoint());
-            ollamaAPI.setRequestTimeoutSeconds(DataHolder.getApiTimeout());
+    private static Ollama getOllamaInstance() {
+        if(ollama == null) {
+            ollama = new Ollama(DataHolder.getApiEndpoint());
+            ollama.setRequestTimeoutSeconds(DataHolder.getApiTimeout());
         }
-        return ollamaAPI;
+        return ollama;
     }
 
     private static boolean isOllamaActive() {
-        OllamaAPI ollamaAPI = getOllamaInstance();
-        return ollamaAPI.ping();
+        Ollama ollama = getOllamaInstance();
+        try {
+            return ollama.ping();
+        } catch (OllamaException e) {
+            return false;
+        }
     }
 
     public static void generateOllamaResponse(Project project, String userPrompt, String sysPrompt, Consumer<String> callback) {
@@ -49,21 +54,25 @@ public class OllamaAPIUtil {
         });
     }
 
-    private static String generateAndGetOllamaAnswer(String userPrompt, String sysPrompt) throws OllamaBaseException, IOException, InterruptedException, ToolInvocationException {
-        OllamaAPI ollamaAPI = getOllamaInstance();
+    private static String generateAndGetOllamaAnswer(String userPrompt, String sysPrompt) throws OllamaException {
+        Ollama ollama = getOllamaInstance();
 
         if(!isOllamaActive()) {
             FeedbackOptions.showErrorOllamaInactive();
         }
 
-        OllamaChatRequestBuilder builder = OllamaChatRequestBuilder.getInstance(DataHolder.getOllamaModel());
-        OllamaChatRequest requestModel = builder.withMessage(OllamaChatMessageRole.SYSTEM, sysPrompt)
+        // Updated to use the new builder pattern
+        OllamaChatRequest requestModel = OllamaChatRequest.builder()
+                .withModel(DataHolder.getOllamaModel())
+                .withMessage(OllamaChatMessageRole.SYSTEM, sysPrompt)
                 .withMessage(OllamaChatMessageRole.USER, userPrompt)
                 .build();
 
-        OllamaChatResult chatResult = ollamaAPI.chat(requestModel);
+        // Updated method call (passing null for the stream handler)
+        OllamaChatResult chatResult = ollama.chat(requestModel, null);
 
-        return chatResult.getResponseModel().getMessage().getContent();
+        // Updated to get response content (getContent() -> getResponse())
+        return chatResult.getResponseModel().getMessage().getResponse();
     }
 
 }
