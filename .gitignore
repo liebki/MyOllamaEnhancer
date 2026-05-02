@@ -140,3 +140,6 @@ gradle-app.setting
 /gradlew
 /gradlew.bat
 /gradle/wrapper/gradle-wrapper.properties
+
+# Project exclude paths
+/.intellijPlatform/
