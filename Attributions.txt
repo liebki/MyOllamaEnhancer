@@ -1,0 +1,36 @@
+Third-Party Attributions:
+
+1. Ollama4j - MIT License
+   Copyright (c) 2023–2025 Ollama4j Contributors
+   https://github.com/ollama4j/ollama4j
+
+2. Gson - Apache License 2.0
+   Copyright (c) 2008 Google Inc.
+   https://github.com/google/gson
+
+3. DuckDB JDBC - MIT License
+   Copyright (c) DuckDB authors
+   https://duckdb.org/
+   https://central.sonatype.com/artifact/org.duckdb/duckdb_jdbc
+
+4. org.json (JSON-Java) - The JSON License
+   Copyright (c) 2002 JSON.org
+   https://www.json.org/license.html
+
+5. IntelliJ Platform - Apache License 2.0
+   Copyright (c) 2000-2025 JetBrains s.r.o.
+   https://www.jetbrains.com/idea/
+
+6. Icons by uxwing
+   https://uxwing.com/
+
+---
+ This NOTICE is provided for attribution and compliance purposes. See THIRD_PARTY_NOTICES.md for full license texts where required.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

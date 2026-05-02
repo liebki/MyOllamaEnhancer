@@ -1,12 +1,11 @@
-package de.liebki.myollamaenhancer;
+package de.liebki.myollamaenhancer.types;
 
 import java.util.Arrays;
 
 public enum OllamaOption {
 
-    SIMPLE_CODE("Simple Code","Just enhance this code, do not include anything but the thing that is asked for, this is {0} Code. Also do not explain what you did or comment on anything just provide code, don't use formatting, give always the raw code."),
-    ERROR_EXPLAIN_SIMPLE("Explain Simple","Identify problems in this stack trace, just explain where in the codebase the problem could be located. Do not include any additional comments or explanations, just explain where the error is found and what it is about."),
-    ERROR_EXPLAIN_BULLET ("Explain Bullet" ,"Identify problems in this stack trace, just explain with bullet points where in the codebase the problem could be located. Do not include any additional comments or explanations, just explain where the error is found and what it is about."),
+
+    ERROR_EXPLAIN_SIMPLE("Explain Simple", "Identify problems in this stack trace, just explain where in the codebase the problem could be located. Do not include any additional comments or explanations, just explain where the error is found and what it is about."),
 
     READABILITY("Better Readability", "Look at the following {0} code and enhance it for readability. Make necessary changes and provide only the updated code. Also do not explain what you did or comment on anything just provide code, don't use formatting, give always the raw code."),
     BUGS("Fix Bugs/Problems", "Look at the following {0} code, identify and fix bugs or problems. Make the necessary changes and provide only the updated code. Also do not explain what you did or comment on anything just provide code, don't use formatting, give always the raw code."),
@@ -16,36 +15,31 @@ public enum OllamaOption {
     COMMENT_CODE("Add Comment", "Look at this {0} code and generate a short but concise comment which explains the primary purpose. Include only the comment and no additional information."),
     FIX_BROKEN("Fix Code not working", "Look at the following {0} code, identify the problem, why has the code an error. Make the necessary changes and only provide the updated code. Also do not explain what you did or comment on anything just provide code, don't use formatting, give always the raw code.");
 
-    OllamaOption(String comboOption, String prompt) {
+    private static final String[] ENUM_VALUE_ARRAY = Arrays.stream(values())
+            .filter(opt -> ERROR_EXPLAIN_SIMPLE != opt)
+            .map(opt -> opt.comboOption)
+            .toArray(String[]::new);
+    private final String comboOption;
+    private final String prompt;
+
+    OllamaOption(final String comboOption, final String prompt) {
         this.comboOption = comboOption;
         this.prompt = prompt;
     }
 
-    private String comboOption;
-    private String prompt;
-
-    public String getComboOption() {
-        return comboOption;
-    }
-
-    public String getPrompt() {
-        return prompt;
-    }
-
-    public static OllamaOption getOption(String comboOption) {
-        for (OllamaOption ollamaOption : OllamaOption.values()) {
+    public static OllamaOption getOption(final String comboOption) {
+        for (final OllamaOption ollamaOption : values()) {
             if (ollamaOption.comboOption.equals(comboOption)) return ollamaOption;
         }
         throw new IllegalArgumentException("Invalid Option");
     }
 
-    private static final String[] ENUM_VALUE_ARRAY = Arrays.stream(OllamaOption.values())
-            .filter(opt -> !opt.equals(SIMPLE_CODE) && !opt.equals(ERROR_EXPLAIN_SIMPLE) && !opt.equals(ERROR_EXPLAIN_BULLET))
-            .map(opt -> opt.comboOption)
-            .toArray(String[]::new);
-
     public static String[] getEnumValueArray() {
-        return ENUM_VALUE_ARRAY;
+        return OllamaOption.ENUM_VALUE_ARRAY;
+    }
+
+    public String getPrompt() {
+        return this.prompt;
     }
 
 }

@@ -1,71 +1,140 @@
 # MyOllamaEnhancer
 
-MyOllamaEnhancer is a simple IntelliJ Platform Plugin that allows you to use various Ollama models for option-based or custom code enhancements and stack trace analysis.
+**Supercharge your development workflow with AI-powered code enhancement, knowledge management, and error analysis directly in IntelliJ IDEA and Rider!**
+
+MyOllamaEnhancer integrates Ollama's powerful language models into your IDE, providing code assistance, a simple chat with your codebase, and insightful error explanations - all running locally on your machine for maximum privacy and security.
+
+**Why MyOllamaEnhancer?**
+- 🔒 **100% Local Processing**: Your code never leaves your machine
+- 🧠 **AI-Powered Code Enhancement**: Smart suggestions for improving your code
+- 📚 **Index → Select → Send**: Index files and methods locally, select them in chat, and send with your message
+- 🐛 **Stacktrace Analysis**: Get clear explanations and fixes for complex errors
+- ⚙️ **Flexible Configuration**: Works with any Ollama model
+- 🌐 **Cross-Platform**: Supports IntelliJ IDEA and Rider on Windows, macOS, and Linux
+
 
 ## Features
 
-### Enhancement Options
+### Code Enhancement
+- **Quick Enhancement**: Let the Ollama model decide what to change
+- **Option Enhancement**: Choose from multiple prompt variants to enhance your selection
+- **Custom Enhancement**: Add a custom prompt to control the outcome
+- **Comment Generation**: Automatically add comments to your code
 
-- **Quick Enhancement:** Automatically improves your code by allowing the Ollama model to make changes without direction.
-- **Option-Based Enhancement:** Choose from a set of different enhancement options in a menu.
-    - Also offers a **"Comment Generation"** option, which places a comment on top of the selected code to describe it.
-- **Custom Enhancement:** Provide a fully custom prompt to have more control over the outcome.
+### Indexing and Context Selection
+- **Index File for Chat Context**: Right-click a file to index it. The whole file and discovered methods are stored in a local DuckDB database.
+- **Index All Code Files in Folder**: Bulk index supported files in a folder via right-click.
+- **Manage Indexed Items**: Open a management window to view and manage indexed files and individual methods.
+- **Select in Chat**: In the Chat tool window, indexed files and methods are displayed for selection. Your selection is sent along with your message to the chosen model.
 
-You can use this tool to "enhance" things that are not code; consider using the custom prompt option for this.
+### Utilities
+- **Regex Generator**: You can generator regular expressions esily with an example input, wished output and a bit of LLM-Magic.
+- **Simple Chat**: Right now, no real chat history for the LLM supported, so if you chat every message is new BUT you can ask questions about code nontheless!
+- **Model Selector**: No weird string entry copy&pasting all the time, you can simply (add a keymap first!) open the selector, double click any model and directly use it.
+- **Test Ollama Connection**: In the settings you can quickly ping ollama's server to check is the endpoint you typed in really reachable by the extension.
+
+
+## How Chat Context Works (No RAG)
+
+This plugin does not use retrieval-augmented generation (RAG). Instead, you explicitly choose what to send:
+- Index files via right-click. The plugin stores the full file and extracted methods locally in DuckDB.
+- In the chat window, select the relevant files/methods to include.
+- Your selection is combined with your prompt and sent to the local model.
+
 
 ### Stacktrace Analysis
+- **Stacktrace Insights (Bullet)**: Provides a simple summary of the stack trace in bullet points
+- **Stacktrace Insights (Text)**: Offers a more detailed text explanation of the stacktrace
 
-#### Difference in Intellij IDEA and Rider IDE:
-- Intellij IDEA: 
-  - Simply right click a thrown error and select the option to pass to the ollama model.
-- Rider IDE: 
-  - Copy the (whole) stack trace, click on one of the "information"-icons on the bottom left near the exceptions and paste the content in the opened dialog.
+## Prerequisites
 
+1. **Install Ollama**: Download and install Ollama from [https://ollama.com/](https://ollama.com/)
+2. **Download a Model**: We recommend one of the following models as they have been tested with this plugin:
+   - `deepseek-r1:8b-llama-distill-q8_0` (simple reasoning)
+   - `llama3.2:3b-instruct-fp16`
+   
+   The `phi4-mini-reasoning:3.8b-fp16` model is not recommended because it tends to think a bit too complex and produces weird results.
+   
+   Download example:
+   ```bash
+   ollama pull llama3.2:3b-instruct-fp16
+   ```
 
-- **Stacktrace Insights (Bullet):** Provides a simple summary of the stack trace in bullet points for quicker understanding.
-- **Stacktrace Insights (Text):** Offers a more detailed text explanation of the stack trace to help diagnose issues.
+## Setup
 
-### Best Model Recommendation
+1. Install MyOllamaEnhancer from the JetBrains Marketplace
+2. Go to **Settings > Other Settings > MyOllamaEnhancer** to configure:
+   - Ollama server endpoint (default: http://localhost:11434)
+   - Model selection (e.g., llama3:8b-instruct-q6_K)
+   - API timeout (default: 120 seconds)
 
-- **Recommended Model:** A strong model that performs well across various tasks is `llama3:8b-instruct-q6_K`.
-    - To download it, run:
-      ```bash
-      ollama pull llama3:8b-instruct-q6_K
-      ```
-    - This model is approximately 6.6 GB in size, so ensure you have enough memory; I recommend running it on a device with at least 8/16 GB of RAM.
+3. Restart your IDE to ensure all features are properly initialized
+
 
 ## Usage
 
-### Enhancer
-
+### Code Enhancement
 1. Select text or code
 2. Right-click
 3. Choose the MyOllamaEnhancer option you want to execute
-4. (Wait a bit)
-5. Done
+4. Wait for processing
+5. Review and apply the changes
 
-### Stacktrace Analyzer:
 
+### Indexing and Managing Context
+1. **Index Items**: Right-click → "Index File for Chat Context" or "Index All Code Files in Folder"
+2. **Manage Indexed Items**: 
+   - Right-click → "Manage Indexed Items" to open the management window
+   - Or go to Settings → MyOllamaEnhancer → "Manage Indexed Items" button
+3. **In the Management Window**:
+   - View and manage indexed files and their extracted methods
+   - Use bulk operations like "Select All" / "Deselect All"
+   - Delete individual records
+   - View code previews to identify items
+
+
+### Stacktrace Analysis
 1. Select a stack trace
-2. Right-click (Intellij IDEA) or click the info icon and input the stack trace (Rider IDE)
-4. (Wait a bit)
-5. Done
+2. Right-click (IntelliJ IDEA) or click the info icon and input the stack trace (Rider IDE)
+3. Choose "Stacktrace Insights (Bullet)" or "Stacktrace Insights (Text)"
+4. Wait for analysis
 
-## Additional
 
-### Setup
+## Privacy and Security
 
-To configure the plugin, follow these steps:
+MyOllamaEnhancer is designed with your privacy and security in mind:
 
-1. Go to **Settings > Other Settings > MyOllamaEnhancer**.
-2. Configure the endpoint for the Ollama server and specify the model you would like to use.
+- 🔒 **100% Local Processing**: All AI processing happens on your machine
+- 🚫 **No Data Transmission**: Your code and data never leave your computer
+- 📁 **Local Storage**: Chat history and your indexed items (files and methods) are stored locally in DuckDB
+- 🛡️ **Transparent**: Full control over your development environment
 
-### Prerequisites
 
-Ensure you have the following installed before using MyOllamaEnhancer:
+## Best Model
 
-- **Ollama Server:** Follow the [official setup guide](https://ollama.ai).
-- **8/16 GB Memory:** The recommended model (`llama3:8b-instruct-q6_K`) requires a bit of memory for optimal performance.
+A strong model that performs well across various tasks is **llama3:8b-instruct-q6_K**.
+
+Download this model by executing:
+```bash
+ollama pull llama3:8b-instruct-q6_K
+```
+
+This model is 6.6 GB, so please ensure you have adequate memory; I recommend running it on a device with at least 16 GB of RAM.
+
+
+## Indexed Items Overview
+
+Indexed items allow you to:
+- **Add context**: Index files and automatically extracted methods for precise context control
+- **Manage scope**: Enable or remove items to keep context focused
+- **Delete items**: Remove outdated or irrelevant entries
+- **Bulk operations**: Select all or deselect all items at once
+
+This feature is particularly useful when you want to:
+- Keep conversations grounded in specific code areas
+- Avoid unrelated context by selecting only relevant files/methods
+- Ensure full privacy by keeping all data local without vector retrieval
+
 
 ### Contributors!
 Feel free to add stuff you think that is helpful or useful!
@@ -73,8 +142,10 @@ Feel free to add stuff you think that is helpful or useful!
 Thanks also to:
 - [@boaglio](https://github.com/boaglio)
 
+
 ### Todo
 - Check the [issues](https://github.com/liebki/MyOllamaEnhancer/issues), they often contain things that are planned.
+
 
 ## License
 

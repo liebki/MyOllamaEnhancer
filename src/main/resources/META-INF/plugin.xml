@@ -1,104 +1,155 @@
 <idea-plugin>
     <name>MyOllamaEnhancer</name>
     <id>de.liebki.MyOllamaEnhancer</id>
-    <version>0.1.5</version>
-    <vendor email="ciruxdev@gmail.com" url="https://github.com/liebki">Ciruxdev</vendor>
+    <version>2026.5.0</version>
+    <vendor email="ciruxdev@gmail.com" url="https://github.com/liebki">CiruxDev</vendor>
 
     <description>
         <![CDATA[
-    <p>MyOllamaEnhancer is a simple plugin that allows you to use any Ollama models for a variety of tasks.</p>
+    <p>MyOllamaEnhancer is an IntelliJ IDEA and Rider plugin that allows you to use local Ollama models for various development tasks. All processing happens locally on your machine for maximum privacy and security.</p>
 
-    <h3>Features:</h3>
-    <p>1. Quick Enhancement - Let the Ollama model decide what to change.</p>
-    <p>2. Option Enhancement - Give the model a prompt based on your selection (menu selection).</p>
-    <small>- Also offers "Comment generation," which places a comment over the selected code—very helpful!</small>
-    <p>3. Custom Enhancement - Add a custom prompt to control the outcome.</p>
-
-    <p>You can use this tool to "enhance" things that are not code, consider using the custom prompt option for this.</p>
-
-    <h3>Stacktrace Analysis:</h3><ul>
-        <p>Intellij IDEA: Simply right click the Stacktrace and choose what to use bulletpoints or summary text.</p>
-        <p>Rider IDE: Click one of the "information"-icons on the bottom left and input the copied stacktrace. (Sadly the only way I found).</p>
-        <li><strong>Stacktrace Insights (Bullet)</strong>: Provides a simple summary of the stack trace in bullet points for quicker understanding.</li>
-        <li><strong>Stacktrace Insights (Text)</strong>: Offers a more detailed text, which explains the stacktrace to help diagnose the issue.</li>
+    <h2>Main Features</h2>
+    
+    <h3>Code Enhancement</h3>
+    <ul>
+        <li><strong>Option Enhancement</strong>: <em>Right-click → Enhance This With Options</em> - Choose from predefined improvements like "Improve Readability", "Solve Bugs", or "Simplify Code"</li>
+        <li><strong>Custom Enhancement</strong>: <em>Right-click → Enhance This With Custom Prompt</em> - Send custom prompts to the LLM</li>
+        <li><strong>Comment Generation</strong>: <em>Right-click → Add Comments To File</em> - Automatically generates comments for methods</li>
+        <li><strong>Inline Code Generation</strong>: <em>Ctrl+Shift+G</em> - Generate code snippets inline (may need manual keystroke assignment in IDE settings)</li>
+        <li><strong>Regex Generator</strong>: <em>Right-click → Regex Generator (by Example)</em> - Create regex patterns from examples (may need manual keystroke assignment in IDE settings)</li>
     </ul>
 
-    <h3>Best Model:</h3>
-    <p>A strong model that performs well across various tasks is <b>llama3:8b-instruct-q6_K</b>.</p>
-    <p>Download this model by executing <code>ollama pull llama3:8b-instruct-q6_K</code>.</p>
-    <p>This model is 6.6 GB, so please ensure you have adequate memory; I recommend running it on a device with at least 16 GB of RAM.</p>
+    <h3>Code Analysis</h3>
+    <ul>
+        <li><strong>Code Explanation</strong>: <em>Right-click → Explain Selection/Explain File</em> - Get explanations of selected code or files</li>
+        <li><strong>Stacktrace Analysis</strong>:
+            <ul>
+                <li><em>Right-click → Stacktrace Insights (Text)</em> - Detailed explanation of stack traces</li>
+                <li><em>Right-click → Stacktrace Insights (Bullet)</em> - Bullet point summary of stack traces</li>
+                <li>In Rider, use the information icons in the bottom left to analyze stack traces</li>
+            </ul>
+        </li>
+    </ul>
 
-    <h3>Setup:</h3>
-    <p>Go to <strong>Settings > Other Settings/MyOllamaEnhancer</strong> to configure the endpoint for the Ollama server and the model you would like to use.</p>
+    <h3>Chat with Code (Index → Select → Send)</h3>
+    <ul>
+        <li><strong>Chat Window</strong>: <em>View → Tool Windows → Chat Tool Window</em> - Chat with your local LLM</li>
+        <li><strong>Index Files for Chat</strong>:
+            <ul>
+                <li><em>Right-click → Index File for Chat Context</em> - Store the whole file and its discovered methods in a local DuckDB database</li>
+                <li><em>Right-click → Index All Code Files in Folder</em> - Bulk index supported files in a folder</li>
+                <li><em>Right-click → Manage Indexed Items</em> - View and manage indexed files and methods</li>
+            </ul>
+        </li>
+        <li><strong>Select Context</strong>: Indexed files and individual methods are shown in the chat window. Select the ones you want to include.</li>
+        <li><strong>Send to LLM</strong>: Your selection is combined with your message and sent to the chosen model. No vector retrieval (RAG) is used, you choose what to send.</li>
+    </ul>
 
-    <h3>Usage: </h3>
+    <h3>Development Tools</h3>
+    <ul>
+        <li><strong>Git Integration</strong>: <em>Right-click → Generate Git Commit Message</em> - Generate commit messages from changes</li>
+        <li><strong>Documentation</strong>: <em>Right-click → Generate Project README</em> - Generate README files for projects</li>
+        <li><strong>Model Selector</strong>: <em>Ctrl+M</em> - Switch between Ollama models (may need manual keystroke assignment in IDE settings)</li>
+    </ul>
 
-    <h3>Enhancer: </h3>
-    <p>
-      1. Select text or code<br/>
-      2. Right-click<br/>
-      3. Choose the MyOllamaEnhancer option you want to execute<br/>
-      4. (Wait a bit)<br/>
-      5. Done
-    </p>
-    <p>If you are not satisfied with the generated output, you can easily revert the changes.</p>
+    <h2>Getting Started</h2>
+    
+    <h3>Prerequisites</h3>
+    <ol>
+        <li><strong>Install Ollama</strong>: Download from https://ollama.com/</li>
+        <li><strong>In general it can definitly be said, that reasoning models how small they might be, produce better results (makes sense, they reason..)./</li>
+        <li><strong>Download Language Model</strong>: We recommend one of the following models as they have been tested with this plugin:
+            <ul>
+                <li><code>deepseek-r1:8b-llama-distill-q8_0</code> (simple reasoning)</li>
+                <li><code>llama3.2:3b-instruct-fp16</code></li>
+            </ul>
+            The <code>phi4-mini-reasoning:3.8b-fp16</code> model is not recommended because it tends to think a bit too complex and produces weird results.
+        </li>
+    </ol>
+    
+    <h3>Setup</h3>
+    <ol>
+        <li>Go to <strong>Settings > Other Settings > MyOllamaEnhancer</strong> to configure:
+            <ul>
+                <li>Ollama server address (usually http://localhost:11434)</li>
+                <li>Preferred model selection</li>
+                <li>API timeout settings</li>
+            </ul>
+        </li>
+        <li>Restart your IDE to ensure all features are properly initialized</li>
+    </ol>
+    
+    <h3>Quick Start</h3>
+    <ol>
+        <li>Select some code or text</li>
+        <li>Right-click and choose an option</li>
+        <li>Or open the chat window (<em>View → Tool Windows → Chat Tool Window</em>) to ask questions</li>
+    </ol>
+    
+    <p><small>Performance Note: The developer tested these models on a MacBook Pro M1 Pro with 16GB of system memory and achieved acceptable/good results. Typical x86 processors could be slightly slower when no good GPU is available. Smaller models might work but results may vary. Larger models will require more resources but also deliver better results!</small></p>
 
-    <h4>Stacktrace Analyzer: </h4>
-    <p>
-      1. Select a stack trace<br/>
-      2. Right-click (Intellij IDEA) or click the info icon and input the stack trace (Rider IDE)<br/>
-      4. (Wait a bit)<br/>
-      5. Done
-    </p>
-
-    <small>Icon by uxwing!</small>
     ]]>
     </description>
 
-    <change-notes>0.1.4: You can configure the API timeout in the settings and update to intellij platform plugin 2.0</change-notes>
+    <change-notes>0.1.4: You can configure the API timeout in the settings and update to intellij platform plugin 2.0
+    </change-notes>
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <projectConfigurable instance="de.liebki.myollamaenhancer.MyOllamaEnhancerSettings" displayName="MyOllamaEnhancer"/>
+        <applicationService
+                serviceImplementation="de.liebki.myollamaenhancer.configuration.MyOllamaEnhancerSettingsService"/>
+        <projectConfigurable
+                id="de.liebki.myollamaenhancer.configuration.MyOllamaEnhancerSettings"
+                displayName="MyOllamaEnhancer"
+                instance="de.liebki.myollamaenhancer.configuration.MyOllamaEnhancerSettings"/>
 
         <toolWindow id="ErrorToolWindow"
                     anchor="right"
-                    factoryClass="de.liebki.myollamaenhancer.ErrorToolWindow"
+                    factoryClass="de.liebki.myollamaenhancer.windows.ErrorToolWindow"
                     canCloseContents="true"
-                    secondary="false"/>
+                    secondary="false"
+                    icon="AllIcons.Toolwindows.ErrorEvents"/>
+
+        <toolWindow id="ExplainToolWindow"
+                    anchor="right"
+                    factoryClass="de.liebki.myollamaenhancer.windows.ExplainToolWindow"
+                    canCloseContents="true"
+                    secondary="false"
+                    icon="AllIcons.Vcs.ShowUnversionedFiles"/>
+
+        <toolWindow id="ChatToolWindow"
+                    anchor="right"
+                    factoryClass="de.liebki.myollamaenhancer.windows.ChatToolWindow"
+                    canCloseContents="true"
+                    secondary="false"
+                    icon="AllIcons.General.TodoQuestion"/>
+
+        <postStartupActivity
+                implementation="de.liebki.myollamaenhancer.actions.ConfigurableInlineCodeGeneratorAction"/>
+
+        <notificationGroup
+                id="MyOllamaEnhancer Notifications"
+                displayType="BALLOON"
+                logByDefault="true"/>
 
     </extensions>
 
+    <applicationListeners>
+        <listener
+                class="de.liebki.myollamaenhancer.listeners.AutoReembedOnSaveListener"
+                topic="com.intellij.openapi.fileEditor.FileDocumentManagerListener"/>
+    </applicationListeners>
+
     <actions>
-
-        <!-- Stacktrace Analyzer Bulletpoints Rider -->
-        <action id="de.liebki.aihelperplugin.BulletErrorInformationAction.rider"
-                class="de.liebki.myollamaenhancer.actions.BulletErrorInformationRiderAction"
-                text="Stacktrace Insights (Bullet)"
-                description="Analyze a selected Stracktrace with the local model to better understand the problem and provide bullet points."
-                icon="/intellijIcons/informationDialog.svg">
-
-            <add-to-group group-id="RunTab.TopToolbar" anchor="first"/>
-        </action>
 
         <!-- Stacktrace Analyzer Text Rider -->
         <action id="de.liebki.aihelperplugin.ErrorInformationAction.rider"
-                class="de.liebki.myollamaenhancer.actions.SimpleErrorInformationRiderAction"
+                class="de.liebki.myollamaenhancer.platformspecific.SimpleErrorInformationRiderAction"
                 text="Stacktrace Insights (Text)"
                 description="Analyze a selected Stracktrace with the local model to better understand the problem and provide a text."
-                icon="/intellijIcons/informationDialog.svg">
+                icon="AllIcons.Toolwindows.ErrorEvents">
 
             <add-to-group group-id="RunTab.TopToolbar" anchor="first"/>
-        </action>
-
-        <!-- Stacktrace Analyzer Bulletpoints IntelliJ Idea -->
-        <action id="de.liebki.aihelperplugin.BulletErrorInformationAction.intellij"
-                class="de.liebki.myollamaenhancer.actions.BulletErrorInformationAction"
-                text="Stacktrace Insights (Bullet)"
-                description="Analyze a selected Stracktrace with the local model to better understand the problem and provide bullet points."
-                icon="/intellijIcons/informationDialog.svg">
-
-            <add-to-group group-id="ConsoleView.PopupMenu" anchor="first"/>
         </action>
 
         <!-- Stacktrace Analyzer Text IntelliJ Idea -->
@@ -106,7 +157,7 @@
                 class="de.liebki.myollamaenhancer.actions.SimpleErrorInformationAction"
                 text="Stacktrace Insights (Text)"
                 description="Analyze a selected Stracktrace with the local model to better understand the problem and provide a text."
-                icon="/intellijIcons/informationDialog.svg">
+                icon="AllIcons.Toolwindows.ErrorEvents">
 
             <add-to-group group-id="ConsoleView.PopupMenu" anchor="first"/>
         </action>
@@ -131,14 +182,100 @@
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
         </action>
 
-        <!-- Simple Enhance Code Action -->
-        <action id="de.liebki.aihelperplugin.EnhanceCodeAction"
-                class="de.liebki.myollamaenhancer.actions.SimpleCodeEnhanceAction"
-                text="Enhance This"
-                description="Enhances the selection using a Ollama model."
-                icon="/intellijIcons/magicResolveToolbar.svg">
+        <!-- Explain Selection Action -->
+        <action id="de.liebki.myollamaenhancer.actions.SelectionExplainAction"
+                class="de.liebki.myollamaenhancer.actions.SelectionExplainAction"
+                text="Explain Selection"
+                description="Explain the selected code using the LLM. Hold Shift to add extra context before sending."
+                icon="AllIcons.Actions.Find">
+            <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+        </action>
 
-            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+        <!-- Explain File Action -->
+        <action id="de.liebki.aihelperplugin.FileExplainAction"
+                class="de.liebki.myollamaenhancer.actions.FileExplainAction"
+                text="Explain File"
+                description="Generate an explanation of the current file using the selected model."
+                icon="AllIcons.Nodes.Word">
+            <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+            <add-to-group group-id="ProjectViewPopupMenu" anchor="last"/>
+        </action>
+
+        <!-- Inline Code Generator Action -->
+        <action id="de.liebki.aihelperplugin.InlineCodeGeneratorAction"
+                class="de.liebki.myollamaenhancer.actions.InlineCodeGeneratorAction"
+                text="Generate Code Inline"
+                description="Generate code snippets inline using AI."
+                icon="AllIcons.Nodes.TextArea">
+        </action>
+
+        <action id="de.liebki.myollamaenhancer.actions.DebugAddCommentsAction"
+                class="de.liebki.myollamaenhancer.actions.DebugAddCommentsAction"
+                text="Add Comments To File"
+                description="Extracts methods, prints debug info, and adds Ollama-generated comments using structured output."
+                icon="AllIcons.Actions.InlayRenameInComments">
+            <add-to-group group-id="ProjectViewPopupMenu" anchor="last"/>
+        </action>
+
+        <action id="de.liebki.myollamaenhancer.actions.AddToKnowledgeBaseAction"
+                class="de.liebki.myollamaenhancer.actions.AddToKnowledgeBaseAction"
+                text="Index File for Chat Context"
+                description="Index the current file and extract its methods into the local DuckDB for selection in chat (no RAG)."
+                icon="AllIcons.Nodes.Bookmark">
+            <add-to-group group-id="ProjectViewPopupMenu" anchor="last"/>
+        </action>
+
+        <action id="de.liebki.myollamaenhancer.actions.ManageKnowledgeBaseAction"
+                class="de.liebki.myollamaenhancer.actions.ManageKnowledgeBaseAction"
+                text="Manage Indexed Items"
+                description="Open the management window to view and manage indexed files and methods."
+                icon="AllIcons.Nodes.BookmarkGroup">
+            <add-to-group group-id="ProjectViewPopupMenu" anchor="last"/>
+        </action>
+
+        <action id="de.liebki.myollamaenhancer.actions.BatchAddToKnowledgeBaseAction"
+                class="de.liebki.myollamaenhancer.actions.BatchAddToKnowledgeBaseAction"
+                text="Index All Code Files in Folder"
+                description="Index all supported code files in the selected folder (store file + methods in DuckDB)."
+                icon="AllIcons.Nodes.Bookmark">
+            <add-to-group group-id="ProjectViewPopupMenu" anchor="last"/>
+        </action>
+
+        <!-- Git Commit Message Generator Action -->
+        <action id="de.liebki.myollamaenhancer.actions.GitCommitMessageGeneratorAction"
+                class="de.liebki.myollamaenhancer.actions.GitCommitMessageGeneratorAction"
+                text="Generate Git Commit Message"
+                description="Generate a Git commit message based on current changes using AI."
+                icon="AllIcons.Actions.EnableNewUi">
+            <add-to-group group-id="Vcs.MessageActionGroup" anchor="last"/>
+            <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+            <add-to-group group-id="ProjectViewPopupMenu" anchor="last"/>
+        </action>
+
+        <!-- README Generator Action -->
+        <action id="de.liebki.myollamaenhancer.actions.READMEGeneratorAction"
+                class="de.liebki.myollamaenhancer.actions.READMEGeneratorAction"
+                text="Generate Project README"
+                description="Generate a project README based on code analysis using AI."
+                icon="AllIcons.General.ReaderMode">
+            <add-to-group group-id="ProjectViewPopupMenu" anchor="last"/>
+        </action>
+
+        <!-- Open Model Selector Action -->
+        <action id="de.liebki.myollamaenhancer.actions.OpenModelSelectorAction"
+                class="de.liebki.myollamaenhancer.actions.OpenModelSelectorAction"
+                text="Open Model Selector"
+                description="Open the LLM Model Selector Dialog">
+            <keyboard-shortcut keymap="Default" first-keystroke="ctrl M" />
+        </action>
+
+        <!-- Regex Generator (by Example) -->
+        <action id="de.liebki.myollamaenhancer.actions.RegexGeneratorAction"
+                class="de.liebki.myollamaenhancer.actions.RegexGeneratorAction"
+                text="Regex Generator (by Example)"
+                description="Open a dialog to generate a regex from an example and target capture using the model.">
+            <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+            <keyboard-shortcut keymap="Default" first-keystroke="ctrl shift R" />
         </action>
 
     </actions>
